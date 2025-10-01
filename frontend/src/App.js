@@ -107,6 +107,11 @@ function App() {
     return date.toLocaleDateString('he-IL');
   };
 
+  const handlePurchase = (account) => {
+    setSelectedAccount(account);
+    setShowPurchaseModal(true);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white">
       <Toaster position="top-center" richColors />
