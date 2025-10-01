@@ -17,6 +17,8 @@ function App() {
   const [accounts, setAccounts] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showCodeModal, setShowCodeModal] = useState(false);
+  const [showPurchaseModal, setShowPurchaseModal] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState(null);
   const [accessCode, setAccessCode] = useState('');
   const [isCodeVerified, setIsCodeVerified] = useState(false);
   const [loading, setLoading] = useState(false);
