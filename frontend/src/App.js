@@ -112,7 +112,7 @@ function App() {
       {/* Header */}
       <header className="text-center py-12">
         <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-          Gaming Shop
+          Frozen Shop
         </h1>
         <p className="text-xl text-gray-300">משתמשים למחירה</p>
       </header>
