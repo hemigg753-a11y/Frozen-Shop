@@ -1,4 +1,5 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException, File, UploadFile, Form
+from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -6,9 +7,10 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Optional
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
+import base64
 
 
 ROOT_DIR = Path(__file__).parent
@@ -25,21 +27,40 @@ app = FastAPI()
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
-
 # Define Models
 class StatusCheck(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     client_name: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+class GameAccount(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str
+    description: str
+    price: float
+    seller: str = "Admin"
+    image_data: Optional[str] = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    game_type: str = "Fortnite"
+
+class GameAccountCreate(BaseModel):
+    title: str
+    description: str
+    price: float
+    access_code: str
+
+class CodeVerification(BaseModel):
+    code: str
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Gaming Accounts API"}
 
+# Status endpoints
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
     status_dict = input.dict()
@@ -51,6 +72,68 @@ async def create_status_check(input: StatusCheckCreate):
 async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
+
+# Code verification endpoint
+@api_router.post("/verify-code")
+async def verify_access_code(code_data: CodeVerification):
+    if code_data.code == "ALON123GG1":
+        return {"valid": True, "message": "קוד נכון! תוכל להעלות מוצר"}
+    else:
+        return {"valid": False, "message": "קוד שגוי!"}
+
+# Game accounts endpoints
+@api_router.get("/accounts", response_model=List[GameAccount])
+async def get_accounts():
+    accounts = await db.game_accounts.find().sort("created_at", -1).to_list(100)
+    return [GameAccount(**account) for account in accounts]
+
+@api_router.post("/accounts")
+async def create_account(
+    title: str = Form(...),
+    description: str = Form(...),
+    price: float = Form(...),
+    access_code: str = Form(...),
+    image: UploadFile = File(None)
+):
+    # Verify access code
+    if access_code != "ALON123GG1":
+        raise HTTPException(status_code=403, detail="קוד גישה שגוי")
+    
+    # Handle image upload
+    image_data = None
+    if image:
+        if not image.content_type.startswith('image/'):
+            raise HTTPException(status_code=400, detail="יש להעלות קובץ תמונה")
+        
+        content = await image.read()
+        image_data = base64.b64encode(content).decode('utf-8')
+        image_data = f"data:{image.content_type};base64,{image_data}"
+    
+    # Create account object
+    account_data = {
+        "title": title,
+        "description": description, 
+        "price": price,
+        "image_data": image_data
+    }
+    
+    account = GameAccount(**account_data)
+    account_dict = account.dict()
+    
+    # Convert datetime to string for MongoDB
+    if isinstance(account_dict['created_at'], datetime):
+        account_dict['created_at'] = account_dict['created_at'].isoformat()
+    
+    result = await db.game_accounts.insert_one(account_dict)
+    
+    return {"success": True, "id": account.id, "message": "חשבון נוסף בהצלחה!"}
+
+@api_router.delete("/accounts/{account_id}")
+async def delete_account(account_id: str):
+    result = await db.game_accounts.delete_one({"id": account_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="חשבון לא נמצא")
+    return {"success": True, "message": "חשבון נמחק בהצלחה"}
 
 # Include the router in the main app
 app.include_router(api_router)
