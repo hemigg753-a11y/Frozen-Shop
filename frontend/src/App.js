@@ -28,6 +28,8 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loginEmail, setLoginEmail] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
+  const [conversations, setConversations] = useState([]);
+  const [activeConversation, setActiveConversation] = useState(null);
   const [newMessage, setNewMessage] = useState('');
   const [accessCode, setAccessCode] = useState('');
   const [isCodeVerified, setIsCodeVerified] = useState(false);
