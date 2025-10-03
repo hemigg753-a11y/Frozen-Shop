@@ -1050,19 +1050,19 @@ function App() {
             onClick={handleClickOutside}
           ></div>
           <div
-            className="fixed z-50 bg-gray-800 border border-gray-600 rounded-lg shadow-2xl py-2 min-w-[180px]"
+            className="fixed z-50 bg-gray-900 border-2 border-cyan-400 rounded-lg shadow-2xl py-2 min-w-[200px]"
             style={{
-              left: contextMenuPosition.x,
-              top: contextMenuPosition.y,
+              left: Math.min(contextMenuPosition.x, window.innerWidth - 220),
+              top: Math.min(contextMenuPosition.y, window.innerHeight - 120),
             }}
           >
-            <div className="px-4 py-2 text-sm text-gray-300 border-b border-gray-600">
+            <div className="px-4 py-2 text-sm text-cyan-400 border-b border-gray-600 font-semibold">
               {contextMenuUser?.userEmail}
             </div>
             
             <button
               onClick={() => handleDeleteChat(contextMenuUser?.userEmail)}
-              className="w-full px-4 py-2 text-left text-sm text-red-400 hover:bg-gray-700 transition-colors flex items-center gap-2"
+              className="w-full px-4 py-3 text-left text-sm text-red-400 hover:bg-gray-700 transition-colors flex items-center gap-3"
             >
               <Trash2 className="w-4 h-4" />
               מחק צ'אט
@@ -1070,7 +1070,7 @@ function App() {
             
             <button
               onClick={() => handleBanUser(contextMenuUser?.userEmail)}
-              className="w-full px-4 py-2 text-left text-sm text-orange-400 hover:bg-gray-700 transition-colors flex items-center gap-2"
+              className="w-full px-4 py-3 text-left text-sm text-orange-400 hover:bg-gray-700 transition-colors flex items-center gap-3"
             >
               <X className="w-4 h-4" />
               חסום משתמש
