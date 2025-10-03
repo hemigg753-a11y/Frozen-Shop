@@ -753,7 +753,7 @@ function App() {
                 <h3 className="text-lg font-semibold mb-4 p-4">שיחות ({conversations.length})</h3>
                 <div className="overflow-y-auto max-h-[350px]">
                   {conversations.length === 0 ? (
-                    <div className="text-center text-gray-400 py-8">
+                    <div className="text-center text-gray-500 py-8">
                       אין שיחות פעילות
                     </div>
                   ) : (
