@@ -370,7 +370,7 @@ function App() {
         {isLoggedIn && (
           <div className="absolute top-4 right-6 flex items-center gap-4">
             <div className="text-right">
-              <div className="text-sm text-white flex items-center gap-2 bg-black/50 px-3 py-1 rounded-lg">
+              <div className="text-sm text-gray-300 flex items-center gap-2">
                 <User className="w-4 h-4" />
                 {userEmail}
               </div>
