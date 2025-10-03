@@ -55,6 +55,18 @@ class GameAccountCreate(BaseModel):
 class CodeVerification(BaseModel):
     code: str
 
+class ChatMessage(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    sender_email: str
+    message: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    is_admin: bool = False
+
+class ChatMessageCreate(BaseModel):
+    sender_email: str
+    message: str
+    is_admin: bool = False
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
