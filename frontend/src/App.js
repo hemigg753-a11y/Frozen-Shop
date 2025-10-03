@@ -56,6 +56,15 @@ function App() {
     }
   };
 
+  const fetchChatMessages = async () => {
+    try {
+      const response = await axios.get(`${API}/chat/messages`);
+      setChatMessages(response.data);
+    } catch (error) {
+      console.error('Error fetching chat messages:', error);
+    }
+  };
+
   const verifyCode = async () => {
     try {
       setLoading(true);
