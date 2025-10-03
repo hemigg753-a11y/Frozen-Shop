@@ -402,7 +402,7 @@ function App() {
           {accounts.map((account) => (
             <div 
               key={account.id} 
-              className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="bg-white/95 backdrop-blur-sm rounded-2xl border border-white/20 overflow-hidden hover:transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/10"
             >
               {/* Account Image */}
               <div className="relative h-48 bg-gradient-to-br from-gray-700 to-gray-800">
