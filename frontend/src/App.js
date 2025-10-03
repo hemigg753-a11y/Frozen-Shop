@@ -319,6 +319,76 @@ function App() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Purchase Modal */}
+      <Dialog open={showPurchaseModal} onOpenChange={setShowPurchaseModal}>
+        <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-center">רכישת חשבון</DialogTitle>
+          </DialogHeader>
+          {selectedAccount && (
+            <div className="space-y-6">
+              {/* Account Info */}
+              <div className="text-center border-b border-gray-600 pb-4">
+                <h3 className="text-lg font-bold text-white mb-2">{selectedAccount.title}</h3>
+                <div className="text-2xl font-bold text-cyan-400">{formatPrice(selectedAccount.price)}</div>
+              </div>
+              
+              {/* Payment Form */}
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="email">כתובת אימייל</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    className="bg-gray-700 border-gray-600 text-white"
+                    placeholder="your@email.com"
+                    data-testid="purchase-email"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="payment-method">אמצעי תשלום</Label>
+                  <select 
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white"
+                    data-testid="payment-method"
+                  >
+                    <option value="paypal">PayPal</option>
+                    <option value="crypto">מטבע דיגיטלי</option>
+                    <option value="bank">העברה בנקאית</option>
+                  </select>
+                </div>
+                
+                <div className="bg-gray-700/50 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">מה תקבל:</h4>
+                  <ul className="text-sm text-gray-300 space-y-1">
+                    <li>• פרטי התחברות לחשבון</li>
+                    <li>• אימייל עם כל הפרטים</li>
+                    <li>• תמיכה 24/7</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                <Button 
+                  onClick={() => setShowPurchaseModal(false)}
+                  variant="outline"
+                  className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700"
+                >
+                  ביטול
+                </Button>
+                <Button 
+                  onClick={handlePurchaseSubmit}
+                  className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold"
+                  data-testid="complete-purchase-btn"
+                >
+                  השלם רכישה
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
