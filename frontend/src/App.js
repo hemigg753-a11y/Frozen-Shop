@@ -187,9 +187,11 @@ function App() {
   };
 
   const handlePurchaseSubmit = () => {
-    toast.success('תשלום בוצע בהצלחה! פרטי החשבון נשלחו אליך במייל');
+    toast.success('הזמנה התקבלה! שלח אישור תשלום בצ'אט ותקבל את החשבון תוך 24 שעות');
     setShowPurchaseModal(false);
     setSelectedAccount(null);
+    // Automatically open chat for payment confirmation
+    setShowChatModal(true);
   };
 
   const handleDeleteAccount = (account) => {
