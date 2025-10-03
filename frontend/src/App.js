@@ -877,7 +877,8 @@ function App() {
             <div className="flex flex-1 gap-4">
               {/* Conversations List */}
               <div className="w-1/3 border-r border-gray-600">
-                <h3 className="text-lg font-semibold mb-4 p-4">שיחות ({conversations.length})</h3>
+                <h3 className="text-lg font-semibold mb-2 p-4">שיחות ({conversations.length})</h3>
+                <p className="text-xs text-gray-400 px-4 mb-4">לחיצה ימנית לעוד אפשרויות</p>
                 <div className="overflow-y-auto max-h-[350px]">
                   {conversations.length === 0 ? (
                     <div className="text-center text-gray-400 py-8">
