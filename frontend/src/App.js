@@ -269,14 +269,14 @@ function App() {
   const openConversation = async (conversation) => {
     setActiveConversation(conversation);
     
-    // Get all messages for this conversation (user + admin responses)
+    // Get all messages for this conversation
     try {
       const response = await axios.get(`${API}/chat/messages`);
       const allMessages = response.data;
       
       const conversationMessages = allMessages.filter(msg => 
-        msg.sender_email === conversation.userEmail || 
-        (msg.is_admin && msg.sender_email === conversation.userEmail)
+        (msg.sender_email === conversation.userEmail && msg.conversation_with === 'lagzielalon81@gmail.com') ||
+        (msg.sender_email === 'lagzielalon81@gmail.com' && msg.conversation_with === conversation.userEmail)
       ).sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
       
       setChatMessages(conversationMessages);
