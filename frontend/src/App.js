@@ -209,7 +209,7 @@ function App() {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleDeleteAccount(account.id);
+                    handleDeleteAccount(account);
                   }}
                   className="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition-all duration-200 opacity-80 hover:opacity-100"
                   data-testid={`delete-account-${account.id}`}
