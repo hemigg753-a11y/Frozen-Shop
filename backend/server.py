@@ -217,6 +217,16 @@ async def create_chat_message(message_data: ChatMessageCreate):
     
     return {"success": True, "message": "הודעה נשלחה בהצלחה ואימייל נשלח לאדמין"}
 
+@api_router.post("/send-email")
+async def send_email_direct(sender_email: str = Form(...), message: str = Form(...)):
+    """Direct endpoint to send email to admin"""
+    success = send_email_notification(sender_email, message)
+    
+    if success:
+        return {"success": True, "message": f"אימייל נשלח בהצלחה ל-{ADMIN_EMAIL}"}
+    else:
+        raise HTTPException(status_code=500, detail="שגיאה בשליחת האימייל")
+
 # Include the router in the main app
 app.include_router(api_router)
 
