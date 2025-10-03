@@ -888,6 +888,7 @@ function App() {
                       <div 
                         key={index}
                         onClick={() => openConversation(conv)}
+                        onContextMenu={(e) => handleRightClick(e, conv)}
                         className={`p-3 border-b border-gray-700 cursor-pointer hover:bg-gray-600 transition-all duration-200 ${
                           activeConversation?.userEmail === conv.userEmail ? 'bg-blue-600 border-blue-400' : 'hover:border-gray-600'
                         }`}
