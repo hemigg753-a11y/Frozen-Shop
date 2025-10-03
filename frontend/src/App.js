@@ -1041,6 +1041,43 @@ function App() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Context Menu */}
+      {showContextMenu && (
+        <>
+          <div 
+            className="fixed inset-0 z-40" 
+            onClick={handleClickOutside}
+          ></div>
+          <div
+            className="fixed z-50 bg-gray-800 border border-gray-600 rounded-lg shadow-2xl py-2 min-w-[180px]"
+            style={{
+              left: contextMenuPosition.x,
+              top: contextMenuPosition.y,
+            }}
+          >
+            <div className="px-4 py-2 text-sm text-gray-300 border-b border-gray-600">
+              {contextMenuUser?.userEmail}
+            </div>
+            
+            <button
+              onClick={() => handleDeleteChat(contextMenuUser?.userEmail)}
+              className="w-full px-4 py-2 text-left text-sm text-red-400 hover:bg-gray-700 transition-colors flex items-center gap-2"
+            >
+              <Trash2 className="w-4 h-4" />
+              מחק צ'אט
+            </button>
+            
+            <button
+              onClick={() => handleBanUser(contextMenuUser?.userEmail)}
+              className="w-full px-4 py-2 text-left text-sm text-orange-400 hover:bg-gray-700 transition-colors flex items-center gap-2"
+            >
+              <X className="w-4 h-4" />
+              חסום משתמש
+            </button>
+          </div>
+        </>
+      )}
         </>
       )}
     </div>
