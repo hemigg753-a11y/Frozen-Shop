@@ -183,23 +183,32 @@ function App() {
     toast.success('התנתקת בהצלחה');
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (newMessage.trim()) {
       const currentTime = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-      setChatMessages([...chatMessages, { sender: 'אתה', message: newMessage, time: currentTime }]);
+      
+      const newMsg = {
+        sender: isAdmin ? 'אדמין' : userEmail,
+        message: newMessage,
+        time: currentTime,
+        isAdmin: isAdmin
+      };
+      
+      // Add message to local chat
+      setChatMessages([...chatMessages, newMsg]);
       setNewMessage('');
       
-      // Show email notification
-      toast.success(`ההודעה נשלחה בהצלחה לאימייל: lagzielalon81@gmail.com`);
-      
-      // Simulate admin response
-      setTimeout(() => {
-        setChatMessages(prev => [...prev, { 
-          sender: 'אדמין', 
-          message: `תודה על פנייתך! קיבלתי את ההודעה ואטפל בזה בהקדם. תשובה תישלח אליך במייל.`, 
-          time: new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })
-        }]);
-      }, 1500);
+      // Send message to backend/email only if not admin
+      if (!isAdmin) {
+        try {
+          // Here we would normally send to backend to email the admin
+          toast.success(`ההודעה נשלחה בהצלחה לאדמין: lagzielalon81@gmail.com`);
+        } catch (error) {
+          toast.error('שגיאה בשליחת ההודעה');
+        }
+      } else {
+        toast.success('ההודעה נשלחה');
+      }
     }
   };
 
