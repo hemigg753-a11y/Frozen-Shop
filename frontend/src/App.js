@@ -68,10 +68,11 @@ function App() {
         const grouped = groupMessagesByUser(allMessages);
         setConversations(grouped);
       } else {
-        // Show only messages for this user
+        // Show only messages for this user's conversation with admin
         const userMessages = allMessages.filter(
-          msg => msg.sender_email === userEmail || msg.is_admin
-        );
+          msg => (msg.sender_email === userEmail && msg.conversation_with === 'lagzielalon81@gmail.com') ||
+                 (msg.sender_email === 'lagzielalon81@gmail.com' && msg.conversation_with === userEmail)
+        ).sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
         setChatMessages(userMessages);
       }
     } catch (error) {
