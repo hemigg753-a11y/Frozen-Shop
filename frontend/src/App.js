@@ -61,10 +61,46 @@ function App() {
   const fetchChatMessages = async () => {
     try {
       const response = await axios.get(`${API}/chat/messages`);
-      setChatMessages(response.data);
+      const allMessages = response.data;
+      
+      if (isAdmin) {
+        // Group messages by user for admin
+        const grouped = groupMessagesByUser(allMessages);
+        setConversations(grouped);
+      } else {
+        // Show only messages for this user
+        const userMessages = allMessages.filter(
+          msg => msg.sender_email === userEmail || msg.is_admin
+        );
+        setChatMessages(userMessages);
+      }
     } catch (error) {
       console.error('Error fetching chat messages:', error);
     }
+  };
+
+  const groupMessagesByUser = (messages) => {
+    const groups = {};
+    
+    messages.forEach(msg => {
+      const userEmail = msg.is_admin ? 'admin' : msg.sender_email;
+      if (userEmail !== 'admin') {
+        if (!groups[userEmail]) {
+          groups[userEmail] = {
+            userEmail: userEmail,
+            messages: [],
+            lastMessage: null,
+            unreadCount: 0
+          };
+        }
+        groups[userEmail].messages.push(msg);
+        groups[userEmail].lastMessage = msg;
+      }
+    });
+    
+    return Object.values(groups).sort(
+      (a, b) => new Date(b.lastMessage.timestamp) - new Date(a.lastMessage.timestamp)
+    );
   };
 
   const verifyCode = async () => {
