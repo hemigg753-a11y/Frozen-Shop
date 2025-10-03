@@ -389,10 +389,10 @@ function App() {
         )}
         
         <div className="text-center">
-          <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-6xl font-bold mb-4 text-gray-900">
             Frozen Shop
           </h1>
-          <p className="text-xl text-gray-300">משתמשים למחירה</p>
+          <p className="text-xl text-gray-600">משתמשים למחירה</p>
         </div>
       </header>
 
