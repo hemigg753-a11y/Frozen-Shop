@@ -200,6 +200,9 @@ async def create_chat_message(message_data: ChatMessageCreate):
         # User sending to admin
         conversation_with = "lagzielalon81@gmail.com"
         sender_email = message_data.sender_email
+        
+        # Send email notification to admin when user sends message
+        send_email_notification(sender_email, message_data.message)
     
     message_dict = {
         "sender_email": sender_email,
@@ -212,7 +215,7 @@ async def create_chat_message(message_data: ChatMessageCreate):
     
     await db.chat_messages.insert_one(message_dict)
     
-    return {"success": True, "message": "הודעה נשלחה בהצלחה"}
+    return {"success": True, "message": "הודעה נשלחה בהצלחה ואימייל נשלח לאדמין"}
 
 # Include the router in the main app
 app.include_router(api_router)
