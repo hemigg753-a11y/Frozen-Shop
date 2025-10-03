@@ -257,7 +257,18 @@ function App() {
         }
         
         if (!isAdmin) {
-          toast.success(`ההודעה נשלחה לאדמין: lagzielalon81@gmail.com`);
+          // Send additional email notification
+          try {
+            await axios.post(`${API}/send-email`, {
+              sender_email: userEmail,
+              message: newMessage
+            }, {
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+            toast.success(`ההודעה נשלחה לאדמין באימייל: lagzielalon81@gmail.com`);
+          } catch (error) {
+            toast.success(`ההודעה נשמרה באתר (אימייל לא נשלח)`);
+          }
         } else {
           toast.success('ההודעה נשלחה');
         }
