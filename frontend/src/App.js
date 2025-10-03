@@ -189,12 +189,38 @@ function App() {
     setShowPurchaseModal(true);
   };
 
-  const handlePurchaseSubmit = () => {
-    toast.success("הזמנה התקבלה! שלח אישור תשלום בצ'אט ותקבל את החשבון תוך 24 שעות");
-    setShowPurchaseModal(false);
-    setSelectedAccount(null);
-    // Automatically open chat for payment confirmation
-    setShowChatModal(true);
+  const handlePurchaseSubmit = async () => {
+    const emailInput = document.getElementById('purchase-email');
+    const customerEmail = emailInput?.value;
+    
+    if (!customerEmail || !customerEmail.includes('@')) {
+      toast.error('אנא הזן כתובת אימייל תקינה');
+      return;
+    }
+    
+    try {
+      // Send purchase details to backend
+      const purchaseData = {
+        customer_email: customerEmail,
+        account_title: selectedAccount.title,
+        price: selectedAccount.price
+      };
+      
+      await axios.post(`${API}/purchase`, purchaseData);
+      
+      toast.success("🎉 הזמנה התקבלה! האדמין קיבל אימייל ויטפל בהקדם");
+      setShowPurchaseModal(false);
+      setSelectedAccount(null);
+      
+      // Automatically open chat for payment confirmation
+      setTimeout(() => {
+        setShowChatModal(true);
+      }, 1000);
+      
+    } catch (error) {
+      toast.error('שגיאה ביצירת ההזמנה');
+      console.error('Purchase error:', error);
+    }
   };
 
   const handleDeleteAccount = (account) => {
