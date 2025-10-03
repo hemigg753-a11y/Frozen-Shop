@@ -118,6 +118,20 @@ function App() {
     setSelectedAccount(null);
   };
 
+  const handleDeleteAccount = async (accountId) => {
+    if (window.confirm('האם אתה בטוח שברצונך למחוק את החשבון?')) {
+      try {
+        const response = await axios.delete(`${API}/accounts/${accountId}`);
+        if (response.data.success) {
+          toast.success('החשבון נמחק בהצלחה');
+          fetchAccounts(); // Refresh the accounts list
+        }
+      } catch (error) {
+        toast.error('שגיאה במחיקת החשבון');
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white">
       <Toaster position="top-center" richColors />
