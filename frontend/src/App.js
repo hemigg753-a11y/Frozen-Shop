@@ -332,7 +332,7 @@ function App() {
           </DialogHeader>
           <div className="space-y-6">
             <div className="text-center">
-              <p className="text-gray-300 mb-4">התחבר עם כתובת האימייל שלך</p>
+              <p className="text-gray-600 mb-4">התחבר עם כתובת האימייל שלך</p>
             </div>
             
             <div>
