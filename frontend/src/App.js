@@ -617,7 +617,7 @@ function App() {
 
       {/* Purchase Modal */}
       <Dialog open={showPurchaseModal} onOpenChange={setShowPurchaseModal}>
-        <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md">
+        <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-center">רכישת חשבון</DialogTitle>
           </DialogHeader>
@@ -626,42 +626,118 @@ function App() {
               {/* Account Info */}
               <div className="text-center border-b border-gray-600 pb-4">
                 <h3 className="text-lg font-bold text-white mb-2">{selectedAccount.title}</h3>
-                <div className="text-2xl font-bold text-cyan-400">{formatPrice(selectedAccount.price)}</div>
+                <div className="text-3xl font-bold text-cyan-400">{formatPrice(selectedAccount.price)}</div>
               </div>
               
-              {/* Payment Form */}
+              {/* Customer Info */}
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="email">כתובת אימייל</Label>
+                  <Label htmlFor="purchase-email">כתובת אימייל</Label>
                   <Input
-                    id="email"
+                    id="purchase-email"
                     type="email"
                     className="bg-gray-700 border-gray-600 text-white"
                     placeholder="your@email.com"
                     data-testid="purchase-email"
                   />
                 </div>
+              </div>
+              
+              {/* Payment Methods */}
+              <div className="space-y-4">
+                <h4 className="text-lg font-bold text-cyan-400">בחר אמצעי תשלום:</h4>
                 
-                <div>
-                  <Label htmlFor="payment-method">אמצעי תשלום</Label>
-                  <select 
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white"
-                    data-testid="payment-method"
-                  >
-                    <option value="paypal">PayPal</option>
-                    <option value="crypto">מטבע דיגיטלי</option>
-                    <option value="bank">העברה בנקאית</option>
-                  </select>
+                {/* Bit Payment */}
+                <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-500/30 rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">B</span>
+                    </div>
+                    <h5 className="font-bold text-blue-300">ביט (Bit)</h5>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-2">העבר תשלום באפליקציית ביט למספר:</p>
+                  <div className="bg-gray-700 p-2 rounded font-mono text-center text-cyan-400 font-bold">
+                    054-260-9941
+                  </div>
                 </div>
                 
-                <div className="bg-gray-700/50 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2">מה תקבל:</h4>
-                  <ul className="text-sm text-gray-300 space-y-1">
-                    <li>• פרטי התחברות לחשבון</li>
-                    <li>• אימייל עם כל הפרטים</li>
-                    <li>• תמיכה 24/7</li>
-                  </ul>
+                {/* PayBox Payment */}
+                <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">P</span>
+                    </div>
+                    <h5 className="font-bold text-purple-300">פיבוקס (PayBox)</h5>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-2">העבר תשלום באפליקציית פיבוקס למספר:</p>
+                  <div className="bg-gray-700 p-2 rounded font-mono text-center text-cyan-400 font-bold">
+                    053-627-3764
+                  </div>
                 </div>
+                
+                {/* Cash Cash Payment */}
+                <div className="bg-gradient-to-r from-green-600/20 to-emerald-600/20 border border-green-500/30 rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">C</span>
+                    </div>
+                    <h5 className="font-bold text-green-300">Cash Cash</h5>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-2">העבר תשלום ל-Cash Cash:</p>
+                  <div className="bg-gray-700 p-2 rounded font-mono text-center text-cyan-400 text-sm break-all">
+                    LMGusDqQyqm6CxnL4v1A2Zcy9RF8R7Wr8P
+                  </div>
+                </div>
+                
+                {/* Bitcoin Payment */}
+                <div className="bg-gradient-to-r from-orange-600/20 to-yellow-600/20 border border-orange-500/30 rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">₿</span>
+                    </div>
+                    <h5 className="font-bold text-orange-300">Bitcoin (BTC)</h5>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-2">שלח ביטקוין לכתובת:</p>
+                  <div className="bg-gray-700 p-2 rounded font-mono text-center text-cyan-400 text-sm">
+                    צור קשר לקבלת כתובת BTC
+                  </div>
+                </div>
+                
+                {/* Litecoin Payment */}
+                <div className="bg-gradient-to-r from-gray-600/20 to-slate-600/20 border border-gray-500/30 rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">Ł</span>
+                    </div>
+                    <h5 className="font-bold text-gray-300">Litecoin (LTC)</h5>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-2">שלח לייטקוין לכתובת:</p>
+                  <div className="bg-gray-700 p-2 rounded font-mono text-center text-cyan-400 text-sm break-all">
+                    bc1qs7yzmg5jaf3j25fwuu4a6azrj9ehcvuvck3nfy
+                  </div>
+                </div>
+              </div>
+              
+              {/* Instructions */}
+              <div className="bg-yellow-600/20 border border-yellow-500/30 p-4 rounded-lg">
+                <h4 className="font-semibold mb-2 text-yellow-300">הוראות תשלום:</h4>
+                <ol className="text-sm text-gray-300 space-y-1">
+                  <li>1. בחר אמצעי תשלום מועדף</li>
+                  <li>2. העבר את הסכום המדויק: {selectedAccount && formatPrice(selectedAccount.price)}</li>
+                  <li>3. שלח צילום מסך של התשלום בצ'אט</li>
+                  <li>4. תקבל את פרטי החשבון תוך 24 שעות</li>
+                </ol>
+              </div>
+              
+              {/* What you get */}
+              <div className="bg-gray-700/50 p-4 rounded-lg">
+                <h4 className="font-semibold mb-2 text-cyan-300">מה תקבל:</h4>
+                <ul className="text-sm text-gray-300 space-y-1">
+                  <li>• פרטי התחברות מלאים לחשבון</li>
+                  <li>• אימייל עם כל הפרטים</li>
+                  <li>• תמיכה 24/7</li>
+                  <li>• אחריות על החשבון</li>
+                </ul>
               </div>
               
               <div className="flex gap-3">
@@ -677,7 +753,7 @@ function App() {
                   className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold"
                   data-testid="complete-purchase-btn"
                 >
-                  השלם רכישה
+                  אישור הזמנה
                 </Button>
               </div>
             </div>
