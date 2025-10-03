@@ -184,10 +184,25 @@ async def delete_account(account_id: str):
     return {"success": True, "message": "חשבון נמחק בהצלחה"}
 
 # Chat endpoints
-@api_router.get("/chat/messages", response_model=List[ChatMessage])
+@api_router.get("/chat/messages")
 async def get_chat_messages():
     messages = await db.chat_messages.find().sort("timestamp", 1).to_list(100)
-    return [ChatMessage(**message) for message in messages]
+    
+    # Clean up messages for response
+    cleaned_messages = []
+    for message in messages:
+        # Remove MongoDB _id field and ensure all required fields exist
+        clean_msg = {
+            "id": message.get("id", str(message.get("_id", ""))),
+            "sender_email": message.get("sender_email", ""),
+            "conversation_with": message.get("conversation_with", ""),
+            "message": message.get("message", ""),
+            "timestamp": message.get("timestamp", ""),
+            "is_admin": message.get("is_admin", False)
+        }
+        cleaned_messages.append(clean_msg)
+    
+    return cleaned_messages
 
 @api_router.post("/chat/messages")
 async def create_chat_message(message_data: ChatMessageCreate):
