@@ -326,7 +326,7 @@ function App() {
       <Dialog open={showLoginModal} onOpenChange={() => {}}>
         <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-center text-gray-900">
+            <DialogTitle className="text-2xl font-bold text-center bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
               Frozen Shop
             </DialogTitle>
           </DialogHeader>
