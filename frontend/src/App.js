@@ -18,7 +18,14 @@ function App() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showCodeModal, setShowCodeModal] = useState(false);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showChatModal, setShowChatModal] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
+  const [deleteCode, setDeleteCode] = useState('');
+  const [chatMessages, setChatMessages] = useState([
+    { sender: 'אדמין', message: 'שלום! איך אני יכול לעזור לך?', time: '10:30' }
+  ]);
+  const [newMessage, setNewMessage] = useState('');
   const [accessCode, setAccessCode] = useState('');
   const [isCodeVerified, setIsCodeVerified] = useState(false);
   const [loading, setLoading] = useState(false);
