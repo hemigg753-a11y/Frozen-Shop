@@ -714,7 +714,7 @@ function App() {
           </DialogHeader>
           
           {isAdmin ? (
-            /* Admin View - Conversations List */
+            // Admin View - Conversations List
             <div className="flex flex-1 gap-4">
               {/* Conversations List */}
               <div className="w-1/3 border-r border-gray-600">
