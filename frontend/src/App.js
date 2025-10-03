@@ -487,7 +487,7 @@ function App() {
         {isAdmin && (
           <Button
             onClick={() => setShowCodeModal(true)}
-            className="w-16 h-16 bg-cyan-500 hover:bg-cyan-600 text-black rounded-full shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300"
+            className="w-16 h-16 bg-gray-800 hover:bg-gray-900 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             data-testid="add-account-btn"
           >
             <Plus className="w-8 h-8" />
