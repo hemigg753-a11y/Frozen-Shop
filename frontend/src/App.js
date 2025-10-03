@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Plus, X, Upload, DollarSign, FileImage, Trash2, MessageCircle, Send } from 'lucide-react';
+import { Plus, X, Upload, DollarSign, FileImage, Trash2, MessageCircle, Send, LogOut, User } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
 import { Textarea } from './components/ui/textarea';
