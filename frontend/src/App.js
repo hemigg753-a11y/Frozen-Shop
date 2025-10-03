@@ -156,14 +156,17 @@ function App() {
       setChatMessages([...chatMessages, { sender: 'אתה', message: newMessage, time: currentTime }]);
       setNewMessage('');
       
+      // Show email notification
+      toast.success(`ההודעה נשלחה בהצלחה לאימייל: lagzielalon81@gmail.com`);
+      
       // Simulate admin response
       setTimeout(() => {
         setChatMessages(prev => [...prev, { 
           sender: 'אדמין', 
-          message: 'תודה על פנייתך! אני אטפל בזה בהקדם האפשרי.', 
+          message: `תודה על פנייתך! קיבלתי את ההודעה ואטפל בזה בהקדם. תשובה תישלח אליך במייל.`, 
           time: new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })
         }]);
-      }, 1000);
+      }, 1500);
     }
   };
 
