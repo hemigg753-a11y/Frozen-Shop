@@ -112,6 +112,12 @@ function App() {
     setShowPurchaseModal(true);
   };
 
+  const handlePurchaseSubmit = () => {
+    toast.success('תשלום בוצע בהצלחה! פרטי החשבון נשלחו אליך במייל');
+    setShowPurchaseModal(false);
+    setSelectedAccount(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white">
       <Toaster position="top-center" richColors />
