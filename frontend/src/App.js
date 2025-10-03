@@ -370,12 +370,12 @@ function App() {
         {isLoggedIn && (
           <div className="absolute top-4 right-6 flex items-center gap-4">
             <div className="text-right">
-              <div className="text-sm text-gray-300 flex items-center gap-2">
+              <div className="text-sm text-gray-700 flex items-center gap-2">
                 <User className="w-4 h-4" />
                 {userEmail}
               </div>
               {isAdmin && (
-                <div className="text-xs text-cyan-400 font-semibold">אדמין</div>
+                <div className="text-xs text-blue-600 font-semibold">אדמין</div>
               )}
             </div>
             <Button
