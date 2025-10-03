@@ -85,21 +85,31 @@ function App() {
     
     messages.forEach(msg => {
       // Find the user email - it's either sender or conversation_with (not admin email)
-      const userEmail = msg.sender_email === 'lagzielalon81@gmail.com' ? 
-        msg.conversation_with : msg.sender_email;
-        
-      if (userEmail !== 'lagzielalon81@gmail.com') {
-        if (!groups[userEmail]) {
-          groups[userEmail] = {
-            userEmail: userEmail,
-            messages: [],
-            lastMessage: null,
-            unreadCount: 0
-          };
-        }
-        groups[userEmail].messages.push(msg);
-        groups[userEmail].lastMessage = msg;
+      let userEmail;
+      
+      if (msg.sender_email === 'lagzielalon81@gmail.com') {
+        // Message from admin - conversation is with the user in conversation_with field
+        userEmail = msg.conversation_with;
+      } else {
+        // Message from user - use sender_email
+        userEmail = msg.sender_email;
       }
+      
+      // Skip if no valid user email or if it's empty/admin email
+      if (!userEmail || userEmail === '' || userEmail === 'lagzielalon81@gmail.com') {
+        return;
+      }
+      
+      if (!groups[userEmail]) {
+        groups[userEmail] = {
+          userEmail: userEmail,
+          messages: [],
+          lastMessage: null,
+          unreadCount: 0
+        };
+      }
+      groups[userEmail].messages.push(msg);
+      groups[userEmail].lastMessage = msg;
     });
     
     return Object.values(groups).sort(
