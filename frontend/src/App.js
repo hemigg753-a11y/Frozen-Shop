@@ -463,6 +463,107 @@ function App() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Delete Confirmation Modal */}
+      <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
+        <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-center text-red-400">מחיקת חשבון</DialogTitle>
+          </DialogHeader>
+          {selectedAccount && (
+            <div className="space-y-4">
+              <div className="text-center border-b border-gray-600 pb-4">
+                <h3 className="text-lg font-bold text-white mb-2">{selectedAccount.title}</h3>
+                <p className="text-gray-400">האם אתה בטוח שברצונך למחוק חשבון זה?</p>
+              </div>
+              
+              <div>
+                <Label htmlFor="delete-code">הזן קוד מחיקה</Label>
+                <Input
+                  id="delete-code"
+                  type="text"
+                  value={deleteCode}
+                  onChange={(e) => setDeleteCode(e.target.value)}
+                  className="bg-gray-700 border-gray-600 text-white"
+                  placeholder="הזן קוד מחיקה..."
+                  data-testid="delete-code-input"
+                />
+              </div>
+              
+              <div className="flex gap-3">
+                <Button 
+                  onClick={() => {
+                    setShowDeleteModal(false);
+                    setDeleteCode('');
+                    setSelectedAccount(null);
+                  }}
+                  variant="outline"
+                  className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700"
+                >
+                  ביטול
+                </Button>
+                <Button 
+                  onClick={confirmDeleteAccount}
+                  className="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold"
+                  data-testid="confirm-delete-btn"
+                >
+                  מחק חשבון
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Chat Modal */}
+      <Dialog open={showChatModal} onOpenChange={setShowChatModal}>
+        <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md h-[500px] flex flex-col">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-center">צ'אט עם אדמין</DialogTitle>
+          </DialogHeader>
+          
+          {/* Messages Area */}
+          <div className="flex-1 overflow-y-auto space-y-3 p-4 bg-gray-900 rounded-lg">
+            {chatMessages.map((msg, index) => (
+              <div 
+                key={index} 
+                className={`flex ${msg.sender === 'אתה' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div 
+                  className={`max-w-xs p-3 rounded-lg ${
+                    msg.sender === 'אתה' 
+                      ? 'bg-cyan-500 text-black' 
+                      : 'bg-gray-700 text-white'
+                  }`}
+                >
+                  <div className="text-sm font-semibold mb-1">{msg.sender}</div>
+                  <div className="text-sm">{msg.message}</div>
+                  <div className="text-xs opacity-70 mt-1">{msg.time}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Message Input */}
+          <div className="flex gap-2 pt-4">
+            <Input
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+              placeholder="כתוב הודעה..."
+              className="flex-1 bg-gray-700 border-gray-600 text-white"
+              data-testid="chat-input"
+            />
+            <Button 
+              onClick={handleSendMessage}
+              className="bg-cyan-500 hover:bg-cyan-600 text-black"
+              data-testid="send-message-btn"
+            >
+              <Send className="w-4 h-4" />
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
