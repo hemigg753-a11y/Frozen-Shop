@@ -147,6 +147,25 @@ async def delete_account(account_id: str):
         raise HTTPException(status_code=404, detail="חשבון לא נמצא")
     return {"success": True, "message": "חשבון נמחק בהצלחה"}
 
+# Chat endpoints
+@api_router.get("/chat/messages", response_model=List[ChatMessage])
+async def get_chat_messages():
+    messages = await db.chat_messages.find().sort("timestamp", 1).to_list(100)
+    return [ChatMessage(**message) for message in messages]
+
+@api_router.post("/chat/messages")
+async def create_chat_message(message_data: ChatMessageCreate):
+    message = ChatMessage(**message_data.dict())
+    message_dict = message.dict()
+    
+    # Convert datetime to string for MongoDB
+    if isinstance(message_dict['timestamp'], datetime):
+        message_dict['timestamp'] = message_dict['timestamp'].isoformat()
+    
+    await db.chat_messages.insert_one(message_dict)
+    
+    return {"success": True, "message": "הודעה נשלחה בהצלחה"}
+
 # Include the router in the main app
 app.include_router(api_router)
 
