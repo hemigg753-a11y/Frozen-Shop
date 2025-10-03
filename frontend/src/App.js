@@ -477,7 +477,7 @@ function App() {
         {/* Chat Button - Available to all users */}
         <Button
           onClick={openChat}
-          className="w-16 h-16 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+          className="w-16 h-16 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
           data-testid="chat-btn"
         >
           <MessageCircle className="w-8 h-8" />
