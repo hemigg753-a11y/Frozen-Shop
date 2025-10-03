@@ -847,8 +847,10 @@ function App() {
                     </div>
                   </>
                 ) : (
-                  <div className="flex-1 flex items-center justify-center text-gray-400">
-                    בחר שיחה כדי להתחיל לצ'אט
+                  <div className="flex-1 flex flex-col items-center justify-center text-gray-400 p-8">
+                    <MessageCircle className="w-16 h-16 mb-4 opacity-50" />
+                    <h3 className="text-lg font-semibold mb-2">בחר שיחה מהרשימה</h3>
+                    <p className="text-sm text-center">לחץ על אחד המשתמשים בצד שמאל<br/>כדי להציג את השיחה ולענות להם</p>
                   </div>
                 )}
               </div>
