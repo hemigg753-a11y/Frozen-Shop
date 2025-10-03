@@ -187,7 +187,7 @@ function App() {
   };
 
   const handlePurchaseSubmit = () => {
-    toast.success('הזמנה התקבלה! שלח אישור תשלום בצ'אט ותקבל את החשבון תוך 24 שעות');
+    toast.success("הזמנה התקבלה! שלח אישור תשלום בצ'אט ותקבל את החשבון תוך 24 שעות");
     setShowPurchaseModal(false);
     setSelectedAccount(null);
     // Automatically open chat for payment confirmation
