@@ -672,6 +672,7 @@ function App() {
           </div>
         </DialogContent>
       </Dialog>
+        </>
       )}
     </div>
   );
