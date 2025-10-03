@@ -761,8 +761,8 @@ function App() {
                       <div 
                         key={index}
                         onClick={() => openConversation(conv)}
-                        className={`p-3 border-b border-gray-700 cursor-pointer hover:bg-gray-700 ${
-                          activeConversation?.userEmail === conv.userEmail ? 'bg-gray-700' : ''
+                        className={`p-3 border-b border-gray-700 cursor-pointer hover:bg-gray-600 transition-all duration-200 ${
+                          activeConversation?.userEmail === conv.userEmail ? 'bg-blue-600 border-blue-400' : 'hover:border-gray-600'
                         }`}
                       >
                         <div className="flex items-center gap-3">
