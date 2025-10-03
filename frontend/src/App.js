@@ -210,11 +210,35 @@ function App() {
       <Toaster position="top-center" richColors />
       
       {/* Header */}
-      <header className="text-center py-12">
-        <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-          Frozen Shop
-        </h1>
-        <p className="text-xl text-gray-300">משתמשים למחירה</p>
+      <header className="py-12 relative">
+        {/* User Info */}
+        {isLoggedIn && (
+          <div className="absolute top-4 right-6 flex items-center gap-4">
+            <div className="text-right">
+              <div className="text-sm text-gray-300 flex items-center gap-2">
+                <User className="w-4 h-4" />
+                {userEmail}
+              </div>
+              {isAdmin && (
+                <div className="text-xs text-cyan-400 font-semibold">אדמין</div>
+              )}
+            </div>
+            <Button
+              onClick={handleLogout}
+              className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+              title="התנתק"
+            >
+              <LogOut className="w-4 h-4" />
+            </Button>
+          </div>
+        )}
+        
+        <div className="text-center">
+          <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+            Frozen Shop
+          </h1>
+          <p className="text-xl text-gray-300">משתמשים למחירה</p>
+        </div>
       </header>
 
       {/* Accounts Grid */}
