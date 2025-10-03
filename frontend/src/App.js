@@ -440,11 +440,11 @@ function App() {
 
               {/* Account Info */}
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-900">{account.title}</h3>
-                <p className="text-gray-600 mb-1 flex items-center gap-2">
+                <h3 className="text-xl font-bold mb-2 text-white">{account.title}</h3>
+                <p className="text-gray-400 mb-1 flex items-center gap-2">
                   <span>{account.seller}</span>
                 </p>
-                <p className="text-gray-500 mb-4 text-sm">
+                <p className="text-gray-400 mb-4 text-sm">
                   {formatDate(account.created_at)}
                 </p>
                 
