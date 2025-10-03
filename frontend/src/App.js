@@ -839,7 +839,7 @@ function App() {
                       />
                       <Button 
                         onClick={handleSendMessage}
-                        className="bg-blue-500 hover:bg-blue-600 text-white"
+                        className="bg-green-600 hover:bg-green-700 text-white"
                         data-testid="send-message-btn"
                       >
                         <Send className="w-4 h-4" />
