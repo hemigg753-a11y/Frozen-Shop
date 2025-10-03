@@ -20,8 +20,13 @@ function App() {
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showChatModal, setShowChatModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(true);
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [deleteCode, setDeleteCode] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loginEmail, setLoginEmail] = useState('');
   const [chatMessages, setChatMessages] = useState([
     { sender: 'אדמין', message: 'שלום! איך אני יכול לעזור לך?', time: '10:30' }
   ]);
