@@ -209,6 +209,48 @@ function App() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white">
       <Toaster position="top-center" richColors />
       
+      {/* Login Modal */}
+      <Dialog open={showLoginModal} onOpenChange={() => {}}>
+        <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+              Frozen Shop
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-6">
+            <div className="text-center">
+              <p className="text-gray-300 mb-4">התחבר עם כתובת האימייל שלך</p>
+            </div>
+            
+            <div>
+              <Label htmlFor="login-email">כתובת אימייל</Label>
+              <Input
+                id="login-email"
+                type="email"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+                className="bg-gray-700 border-gray-600 text-white"
+                placeholder="your@email.com"
+                data-testid="login-email-input"
+              />
+            </div>
+            
+            <Button 
+              onClick={handleLogin}
+              className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-3"
+              data-testid="login-btn"
+            >
+              התחבר
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Main Content - Only shown after login */}
+      {isLoggedIn && (
+        <>
+      
       {/* Header */}
       <header className="py-12 relative">
         {/* User Info */}
