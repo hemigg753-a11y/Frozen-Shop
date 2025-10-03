@@ -238,6 +238,14 @@ function App() {
     setShowLoginModal(false);
   };
 
+  const openChat = () => {
+    setShowChatModal(true);
+    if (isAdmin) {
+      // Load conversations when admin opens chat
+      fetchChatMessages();
+    }
+  };
+
   const handleLogout = () => {
     setUserEmail('');
     setIsLoggedIn(false);
