@@ -324,7 +324,7 @@ function App() {
       
       {/* Login Modal */}
       <Dialog open={showLoginModal} onOpenChange={() => {}}>
-        <DialogContent className="bg-white border-gray-200 text-gray-900 max-w-md">
+        <DialogContent className="bg-white/95 backdrop-blur-sm border border-white/20 text-gray-900 max-w-md shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-center text-gray-900">
               Frozen Shop
@@ -539,7 +539,7 @@ function App() {
 
       {/* Add Account Modal */}
       <Dialog open={showAddModal} onOpenChange={setShowAddModal}>
-        <DialogContent className="bg-white border-gray-200 text-gray-900 max-w-md">
+        <DialogContent className="bg-white/95 backdrop-blur-sm border border-white/20 text-gray-900 max-w-md shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-center">הוסף חשבון חדש</DialogTitle>
           </DialogHeader>
@@ -619,7 +619,7 @@ function App() {
 
       {/* Purchase Modal */}
       <Dialog open={showPurchaseModal} onOpenChange={setShowPurchaseModal}>
-        <DialogContent className="bg-white border-gray-200 text-gray-900 max-w-md">
+        <DialogContent className="bg-white/95 backdrop-blur-sm border border-white/20 text-gray-900 max-w-md shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-center">רכישת חשבון</DialogTitle>
           </DialogHeader>
@@ -689,7 +689,7 @@ function App() {
 
       {/* Delete Confirmation Modal */}
       <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
-        <DialogContent className="bg-white border-gray-200 text-gray-900 max-w-md">
+        <DialogContent className="bg-white/95 backdrop-blur-sm border border-white/20 text-gray-900 max-w-md shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-center text-red-400">מחיקת חשבון</DialogTitle>
           </DialogHeader>
