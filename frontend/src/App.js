@@ -828,7 +828,7 @@ function App() {
                     </div>
                     
                     {/* Message Input */}
-                    <div className="flex gap-2 p-4 border-t border-gray-600">
+                    <div className="flex gap-2 p-4 border-t border-gray-200">
                       <Input
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
