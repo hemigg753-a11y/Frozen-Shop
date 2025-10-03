@@ -172,6 +172,7 @@ function App() {
                 </div>
                 
                 <Button 
+                  onClick={() => handlePurchase(account)}
                   className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-pink-500/25"
                   data-testid={`buy-account-${account.id}`}
                 >
