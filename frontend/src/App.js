@@ -343,7 +343,7 @@ function App() {
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-50 border-gray-300 text-gray-900"
                 placeholder="your@email.com"
                 data-testid="login-email-input"
               />
@@ -509,7 +509,7 @@ function App() {
                 type="text"
                 value={accessCode}
                 onChange={(e) => setAccessCode(e.target.value)}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-50 border-gray-300 text-gray-900"
                 placeholder="הזן קוד גישה..."
                 data-testid="access-code-input"
               />
@@ -549,7 +549,7 @@ function App() {
                 type="text"
                 value={newAccount.title}
                 onChange={(e) => setNewAccount({...newAccount, title: e.target.value})}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-50 border-gray-300 text-gray-900"
                 placeholder="לדוגמה: Premium Fortnite Account"
                 data-testid="account-title-input"
               />
@@ -561,7 +561,7 @@ function App() {
                 id="description"
                 value={newAccount.description}
                 onChange={(e) => setNewAccount({...newAccount, description: e.target.value})}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-50 border-gray-300 text-gray-900"
                 placeholder="תאר את החשבון..."
                 rows={3}
                 data-testid="account-description-input"
@@ -576,7 +576,7 @@ function App() {
                 step="0.01"
                 value={newAccount.price}
                 onChange={(e) => setNewAccount({...newAccount, price: e.target.value})}
-                className="bg-gray-700 border-gray-600 text-white"
+                className="bg-gray-50 border-gray-300 text-gray-900"
                 placeholder="99.99"
                 data-testid="account-price-input"
               />
@@ -636,7 +636,7 @@ function App() {
                   <Input
                     id="email"
                     type="email"
-                    className="bg-gray-700 border-gray-600 text-white"
+                    className="bg-gray-50 border-gray-300 text-gray-900"
                     placeholder="your@email.com"
                     data-testid="purchase-email"
                   />
@@ -705,7 +705,7 @@ function App() {
                   type="text"
                   value={deleteCode}
                   onChange={(e) => setDeleteCode(e.target.value)}
-                  className="bg-gray-700 border-gray-600 text-white"
+                  className="bg-gray-50 border-gray-300 text-gray-900"
                   placeholder="הזן קוד מחיקה..."
                   data-testid="delete-code-input"
                 />
