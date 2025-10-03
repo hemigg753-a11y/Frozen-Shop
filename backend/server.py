@@ -58,12 +58,14 @@ class CodeVerification(BaseModel):
 class ChatMessage(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     sender_email: str
+    conversation_with: str  # Email of the other person in conversation
     message: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     is_admin: bool = False
 
 class ChatMessageCreate(BaseModel):
     sender_email: str
+    conversation_with: str = None
     message: str
     is_admin: bool = False
 
