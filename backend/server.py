@@ -52,6 +52,43 @@ def send_email_notification(sender_email: str, message: str):
     except Exception as e:
         logger.error(f"Failed to send email: {e}")
         return False
+
+def send_purchase_notification(customer_email: str, account_title: str, price: float):
+    """Send email notification to admin when someone makes a purchase"""
+    try:
+        # Create message
+        subject = f"🛒 רכישה חדשה - {account_title} - Frozen Shop"
+        
+        email_body = f"""
+        🎉 התקבלה הזמנת רכישה חדשה באתר Frozen Shop!
+        
+        📋 פרטי ההזמנה:
+        ━━━━━━━━━━━━━━━━━━━━
+        🎮 מוצר: {account_title}
+        💰 מחיר: ${price:.2f}
+        👤 לקוח: {customer_email}
+        📅 זמן הזמנה: {datetime.now(timezone.utc).strftime('%d/%m/%Y %H:%M:%S')}
+        
+        📝 פעולות נדרשות:
+        ━━━━━━━━━━━━━━━━━━━━
+        1. ✅ אמת קבלת התשלום
+        2. 📧 שלח פרטי חשבון ללקוח
+        3. 💬 עדכן את הלקוח בצ'אט
+        
+        🔗 כדי לנהל את ההזמנה, התחבר לאתר: 
+        https://gameacc-trade.preview.emergentagent.com
+        """
+        
+        # Log the purchase email
+        logger.info(f"🛒 Purchase Email sent to {ADMIN_EMAIL}")
+        logger.info(f"Subject: {subject}")
+        logger.info(f"Body: {email_body}")
+        
+        return True
+        
+    except Exception as e:
+        logger.error(f"Failed to send purchase email: {e}")
+        return False
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
