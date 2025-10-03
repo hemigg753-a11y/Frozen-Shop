@@ -518,7 +518,7 @@ function App() {
               <Button 
                 onClick={() => setShowCodeModal(false)}
                 variant="outline"
-                className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700"
+                className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-100"
               >
                 ביטול
               </Button>
@@ -598,7 +598,7 @@ function App() {
               <Button 
                 onClick={() => setShowAddModal(false)}
                 variant="outline"
-                className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700"
+                className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-100"
               >
                 ביטול
               </Button>
@@ -668,7 +668,7 @@ function App() {
                 <Button 
                   onClick={() => setShowPurchaseModal(false)}
                   variant="outline"
-                  className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700"
+                  className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-100"
                 >
                   ביטול
                 </Button>
@@ -719,7 +719,7 @@ function App() {
                     setSelectedAccount(null);
                   }}
                   variant="outline"
-                  className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700"
+                  className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-100"
                 >
                   ביטול
                 </Button>
