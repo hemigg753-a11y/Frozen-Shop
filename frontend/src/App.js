@@ -27,9 +27,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loginEmail, setLoginEmail] = useState('');
-  const [chatMessages, setChatMessages] = useState([
-    { sender: 'אדמין', message: 'שלום! איך אני יכול לעזור לך?', time: '10:30' }
-  ]);
+  const [chatMessages, setChatMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [accessCode, setAccessCode] = useState('');
   const [isCodeVerified, setIsCodeVerified] = useState(false);
