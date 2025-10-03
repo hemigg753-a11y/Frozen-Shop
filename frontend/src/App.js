@@ -690,66 +690,177 @@ function App() {
 
       {/* Chat Modal */}
       <Dialog open={showChatModal} onOpenChange={setShowChatModal}>
-        <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md h-[500px] flex flex-col">
+        <DialogContent className={`bg-gray-800 border-gray-700 text-white ${isAdmin ? 'max-w-4xl' : 'max-w-md'} h-[500px] flex flex-col`}>
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold text-center">צ'אט עם אדמין</DialogTitle>
+            <DialogTitle className="text-xl font-bold text-center">
+              {isAdmin ? 'ניהול שיחות' : 'צ'אט עם אדמין'}
+            </DialogTitle>
           </DialogHeader>
           
-          {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto space-y-3 p-4 bg-gray-900 rounded-lg">
-            {chatMessages.length === 0 && (
-              <div className="text-center text-gray-400 py-8">
-                {isAdmin ? 'הודעות ממשתמשים יופיעו כאן' : 'שלח הודעה לאדמין'}
-              </div>
-            )}
-            {chatMessages.map((msg, index) => (
-              <div 
-                key={index} 
-                className={`flex ${
-                  msg.sender_email === userEmail ? 'justify-end' : 'justify-start'
-                }`}
-              >
-                <div 
-                  className={`max-w-xs p-3 rounded-lg ${
-                    msg.sender_email === userEmail
-                      ? 'bg-cyan-500 text-black' 
-                      : msg.is_admin
-                      ? 'bg-green-600 text-white'
-                      : 'bg-gray-700 text-white'
-                  }`}
-                >
-                  <div className="text-sm font-semibold mb-1">
-                    {msg.sender_email === userEmail ? 'אתה' : 
-                     msg.is_admin ? 'אדמין' : 
-                     msg.sender_email}
-                  </div>
-                  <div className="text-sm">{msg.message}</div>
-                  <div className="text-xs opacity-70 mt-1">
-                    {new Date(msg.timestamp).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })}
-                  </div>
+          {isAdmin ? (
+            /* Admin View - Conversations List */
+            <div className="flex flex-1 gap-4">
+              {/* Conversations List */}
+              <div className="w-1/3 border-r border-gray-600">
+                <h3 className="text-lg font-semibold mb-4 p-4">שיחות ({conversations.length})</h3>
+                <div className="overflow-y-auto max-h-[350px]">
+                  {conversations.length === 0 ? (
+                    <div className="text-center text-gray-400 py-8">
+                      אין שיחות פעילות
+                    </div>
+                  ) : (
+                    conversations.map((conv, index) => (
+                      <div 
+                        key={index}
+                        onClick={() => openConversation(conv)}
+                        className={`p-3 border-b border-gray-700 cursor-pointer hover:bg-gray-700 ${
+                          activeConversation?.userEmail === conv.userEmail ? 'bg-gray-700' : ''
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                            {conv.userEmail.charAt(0).toUpperCase()}
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-semibold">{conv.userEmail}</div>
+                            <div className="text-sm text-gray-400 truncate">
+                              {conv.lastMessage.message}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {new Date(conv.lastMessage.timestamp).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
-          
-          {/* Message Input */}
-          <div className="flex gap-2 pt-4">
-            <Input
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="כתוב הודעה..."
-              className="flex-1 bg-gray-700 border-gray-600 text-white"
-              data-testid="chat-input"
-            />
-            <Button 
-              onClick={handleSendMessage}
-              className="bg-cyan-500 hover:bg-cyan-600 text-black"
-              data-testid="send-message-btn"
-            >
-              <Send className="w-4 h-4" />
-            </Button>
-          </div>
+              
+              {/* Active Conversation */}
+              <div className="w-2/3 flex flex-col">
+                {activeConversation ? (
+                  <>
+                    {/* Conversation Header */}
+                    <div className="p-4 border-b border-gray-600">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                          {activeConversation.userEmail.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="font-semibold">{activeConversation.userEmail}</div>
+                      </div>
+                    </div>
+                    
+                    {/* Messages */}
+                    <div className="flex-1 overflow-y-auto space-y-3 p-4">
+                      {chatMessages.map((msg, index) => (
+                        <div 
+                          key={index} 
+                          className={`flex ${
+                            msg.is_admin ? 'justify-end' : 'justify-start'
+                          }`}
+                        >
+                          <div 
+                            className={`max-w-xs p-3 rounded-lg ${
+                              msg.is_admin
+                                ? 'bg-green-600 text-white' 
+                                : 'bg-gray-700 text-white'
+                            }`}
+                          >
+                            <div className="text-sm font-semibold mb-1">
+                              {msg.is_admin ? 'אתה (אדמין)' : msg.sender_email}
+                            </div>
+                            <div className="text-sm">{msg.message}</div>
+                            <div className="text-xs opacity-70 mt-1">
+                              {new Date(msg.timestamp).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {/* Message Input */}
+                    <div className="flex gap-2 p-4 border-t border-gray-600">
+                      <Input
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                        placeholder={`שלח הודעה ל-${activeConversation.userEmail}...`}
+                        className="flex-1 bg-gray-700 border-gray-600 text-white"
+                        data-testid="chat-input"
+                      />
+                      <Button 
+                        onClick={handleSendMessage}
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                        data-testid="send-message-btn"
+                      >
+                        <Send className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex-1 flex items-center justify-center text-gray-400">
+                    בחר שיחה כדי להתחיל לצ'אט
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            /* Regular User View */
+            <>
+              {/* Messages Area */}
+              <div className="flex-1 overflow-y-auto space-y-3 p-4 bg-gray-900 rounded-lg">
+                {chatMessages.length === 0 && (
+                  <div className="text-center text-gray-400 py-8">
+                    שלח הודעה לאדמין
+                  </div>
+                )}
+                {chatMessages.map((msg, index) => (
+                  <div 
+                    key={index} 
+                    className={`flex ${
+                      msg.sender_email === userEmail ? 'justify-end' : 'justify-start'
+                    }`}
+                  >
+                    <div 
+                      className={`max-w-xs p-3 rounded-lg ${
+                        msg.sender_email === userEmail
+                          ? 'bg-cyan-500 text-black' 
+                          : 'bg-green-600 text-white'
+                      }`}
+                    >
+                      <div className="text-sm font-semibold mb-1">
+                        {msg.sender_email === userEmail ? 'אתה' : 'אדמין'}
+                      </div>
+                      <div className="text-sm">{msg.message}</div>
+                      <div className="text-xs opacity-70 mt-1">
+                        {new Date(msg.timestamp).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Message Input */}
+              <div className="flex gap-2 pt-4">
+                <Input
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                  placeholder="כתוב הודעה..."
+                  className="flex-1 bg-gray-700 border-gray-600 text-white"
+                  data-testid="chat-input"
+                />
+                <Button 
+                  onClick={handleSendMessage}
+                  className="bg-cyan-500 hover:bg-cyan-600 text-black"
+                  data-testid="send-message-btn"
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
+              </div>
+            </>
+          )}
         </DialogContent>
       </Dialog>
         </>
