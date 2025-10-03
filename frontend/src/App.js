@@ -237,7 +237,7 @@ function App() {
     if (newMessage.trim()) {
       try {
         const messageData = {
-          sender_email: isAdmin && activeConversation ? activeConversation.userEmail : userEmail,
+          sender_email: isAdmin ? activeConversation.userEmail : userEmail,
           message: newMessage,
           is_admin: isAdmin
         };
@@ -246,7 +246,11 @@ function App() {
         setNewMessage('');
         
         // Refresh messages
-        fetchChatMessages();
+        if (isAdmin && activeConversation) {
+          openConversation(activeConversation);
+        } else {
+          fetchChatMessages();
+        }
         
         if (!isAdmin) {
           toast.success(`ההודעה נשלחה לאדמין: lagzielalon81@gmail.com`);
