@@ -319,7 +319,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900">
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat text-white" style={{backgroundImage: 'url(https://customer-assets.emergentagent.com/job_gameacc-trade/artifacts/7tz89c4b_image.png)'}}>
       <Toaster position="top-center" richColors />
       
       {/* Login Modal */}
