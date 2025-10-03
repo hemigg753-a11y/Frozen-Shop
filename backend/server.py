@@ -215,6 +215,12 @@ async def get_chat_messages():
 
 @api_router.post("/chat/messages")
 async def create_chat_message(message_data: ChatMessageCreate):
+    # Check if user is banned (only for non-admin messages)
+    if not message_data.is_admin:
+        banned_user = await db.banned_users.find_one({"user_email": message_data.sender_email})
+        if banned_user:
+            raise HTTPException(status_code=403, detail="המשתמש חסום ואינו יכול לשלוח הודעות")
+    
     # Set conversation_with field
     if message_data.is_admin:
         # Admin sending to user - conversation_with is the sender_email (which is the user)
