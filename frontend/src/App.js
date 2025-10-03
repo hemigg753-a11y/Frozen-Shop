@@ -822,7 +822,7 @@ function App() {
               </div>
             </div>
           ) : (
-            /* Regular User View */
+            // Regular User View
             <>
               {/* Messages Area */}
               <div className="flex-1 overflow-y-auto space-y-3 p-4 bg-gray-900 rounded-lg">
