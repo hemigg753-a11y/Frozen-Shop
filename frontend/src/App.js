@@ -639,19 +639,32 @@ function App() {
           
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto space-y-3 p-4 bg-gray-900 rounded-lg">
+            {chatMessages.length === 0 && (
+              <div className="text-center text-gray-400 py-8">
+                {isAdmin ? 'הודעות ממשתמשים יופיעו כאן' : 'שלח הודעה לאדמין'}
+              </div>
+            )}
             {chatMessages.map((msg, index) => (
               <div 
                 key={index} 
-                className={`flex ${msg.sender === 'אתה' ? 'justify-end' : 'justify-start'}`}
+                className={`flex ${
+                  (msg.sender === userEmail || msg.sender === 'אתה') ? 'justify-end' : 'justify-start'
+                }`}
               >
                 <div 
                   className={`max-w-xs p-3 rounded-lg ${
-                    msg.sender === 'אתה' 
+                    msg.sender === userEmail || msg.sender === 'אתה'
                       ? 'bg-cyan-500 text-black' 
+                      : msg.isAdmin || msg.sender === 'אדמין'
+                      ? 'bg-green-600 text-white'
                       : 'bg-gray-700 text-white'
                   }`}
                 >
-                  <div className="text-sm font-semibold mb-1">{msg.sender}</div>
+                  <div className="text-sm font-semibold mb-1">
+                    {msg.sender === userEmail ? 'אתה' : 
+                     msg.sender === 'אדמין' || msg.isAdmin ? 'אדמין' : 
+                     msg.sender}
+                  </div>
                   <div className="text-sm">{msg.message}</div>
                   <div className="text-xs opacity-70 mt-1">{msg.time}</div>
                 </div>
