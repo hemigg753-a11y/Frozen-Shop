@@ -319,7 +319,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white">
+    <div className="min-h-screen bg-gray-100 text-gray-900">
       <Toaster position="top-center" richColors />
       
       {/* Login Modal */}
