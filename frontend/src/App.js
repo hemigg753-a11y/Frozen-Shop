@@ -811,8 +811,8 @@ function App() {
                           <div 
                             className={`max-w-xs p-3 rounded-lg ${
                               msg.is_admin
-                                ? 'bg-blue-500 text-white' 
-                                : 'bg-gray-200 text-gray-900'
+                                ? 'bg-green-600 text-white' 
+                                : 'bg-gray-700 text-white'
                             }`}
                           >
                             <div className="text-sm font-semibold mb-1">
