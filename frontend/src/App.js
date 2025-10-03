@@ -466,10 +466,8 @@ function App() {
 
         {accounts.length === 0 && (
           <div className="text-center py-20">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mx-auto max-w-md">
-              <FileImage className="w-16 h-16 text-white/70 mx-auto mb-4" />
-              <p className="text-white text-lg">אין חשבונות זמינים כרגע</p>
-            </div>
+            <FileImage className="w-16 h-16 text-gray-500 mx-auto mb-4" />
+            <p className="text-gray-400 text-lg">אין חשבונות זמינים כרגע</p>
           </div>
         )}
       </main>
