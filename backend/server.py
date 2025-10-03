@@ -157,12 +157,24 @@ async def get_chat_messages():
 
 @api_router.post("/chat/messages")
 async def create_chat_message(message_data: ChatMessageCreate):
-    message = ChatMessage(**message_data.dict())
-    message_dict = message.dict()
+    # Set conversation_with field
+    if message_data.is_admin:
+        # Admin sending to user - conversation_with is the sender_email (which is the user)
+        conversation_with = message_data.sender_email
+        sender_email = "lagzielalon81@gmail.com"
+    else:
+        # User sending to admin
+        conversation_with = "lagzielalon81@gmail.com"
+        sender_email = message_data.sender_email
     
-    # Convert datetime to string for MongoDB
-    if isinstance(message_dict['timestamp'], datetime):
-        message_dict['timestamp'] = message_dict['timestamp'].isoformat()
+    message_dict = {
+        "sender_email": sender_email,
+        "conversation_with": conversation_with,
+        "message": message_data.message,
+        "is_admin": message_data.is_admin,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "id": str(uuid.uuid4())
+    }
     
     await db.chat_messages.insert_one(message_dict)
     
