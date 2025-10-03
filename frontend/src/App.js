@@ -125,17 +125,45 @@ function App() {
     setSelectedAccount(null);
   };
 
-  const handleDeleteAccount = async (accountId) => {
-    if (window.confirm('האם אתה בטוח שברצונך למחוק את החשבון?')) {
-      try {
-        const response = await axios.delete(`${API}/accounts/${accountId}`);
-        if (response.data.success) {
-          toast.success('החשבון נמחק בהצלחה');
-          fetchAccounts(); // Refresh the accounts list
-        }
-      } catch (error) {
-        toast.error('שגיאה במחיקת החשבון');
+  const handleDeleteAccount = (account) => {
+    setSelectedAccount(account);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteAccount = async () => {
+    if (deleteCode !== 'ALON123GG1') {
+      toast.error('קוד מחיקה שגוי!');
+      return;
+    }
+
+    try {
+      const response = await axios.delete(`${API}/accounts/${selectedAccount.id}`);
+      if (response.data.success) {
+        toast.success('החשבון נמחק בהצלחה');
+        setShowDeleteModal(false);
+        setDeleteCode('');
+        setSelectedAccount(null);
+        fetchAccounts();
       }
+    } catch (error) {
+      toast.error('שגיאה במחיקת החשבון');
+    }
+  };
+
+  const handleSendMessage = () => {
+    if (newMessage.trim()) {
+      const currentTime = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+      setChatMessages([...chatMessages, { sender: 'אתה', message: newMessage, time: currentTime }]);
+      setNewMessage('');
+      
+      // Simulate admin response
+      setTimeout(() => {
+        setChatMessages(prev => [...prev, { 
+          sender: 'אדמין', 
+          message: 'תודה על פנייתך! אני אטפל בזה בהקדם האפשרי.', 
+          time: new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })
+        }]);
+      }, 1000);
     }
   };
 
