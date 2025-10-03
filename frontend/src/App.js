@@ -861,7 +861,7 @@ function App() {
               {/* Messages Area */}
               <div className="flex-1 overflow-y-auto space-y-3 p-4 bg-gray-50 rounded-lg">
                 {chatMessages.length === 0 && (
-                  <div className="text-center text-gray-400 py-8">
+                  <div className="text-center text-gray-500 py-8">
                     שלח הודעה לאדמין
                   </div>
                 )}
