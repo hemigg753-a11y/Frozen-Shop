@@ -251,6 +251,63 @@ async def send_email_direct(sender_email: str = Form(...), message: str = Form(.
     else:
         raise HTTPException(status_code=500, detail="שגיאה בשליחת האימייל")
 
+# Chat management endpoints
+@api_router.delete("/chat/user/{user_email}")
+async def delete_user_chat(user_email: str):
+    """Delete all messages for a specific user"""
+    result = await db.chat_messages.delete_many({
+        "$or": [
+            {"sender_email": user_email},
+            {"conversation_with": user_email}
+        ]
+    })
+    
+    return {"success": True, "message": f"נמחקו {result.deleted_count} הודעות", "deleted_count": result.deleted_count}
+
+@api_router.post("/ban-user")
+async def ban_user(ban_request: BanUserRequest):
+    """Ban a user from the system"""
+    # Check if user is already banned
+    existing_ban = await db.banned_users.find_one({"user_email": ban_request.user_email})
+    if existing_ban:
+        raise HTTPException(status_code=400, detail="המשתמש כבר חסום")
+    
+    # Create ban record
+    ban_data = BannedUser(user_email=ban_request.user_email)
+    ban_dict = ban_data.dict()
+    
+    # Convert datetime to string for MongoDB
+    if isinstance(ban_dict['banned_at'], datetime):
+        ban_dict['banned_at'] = ban_dict['banned_at'].isoformat()
+    
+    await db.banned_users.insert_one(ban_dict)
+    
+    # Also delete their chat messages
+    await db.chat_messages.delete_many({
+        "$or": [
+            {"sender_email": ban_request.user_email},
+            {"conversation_with": ban_request.user_email}
+        ]
+    })
+    
+    return {"success": True, "message": f"המשתמש {ban_request.user_email} נחסם בהצלחה"}
+
+@api_router.get("/banned-users")
+async def get_banned_users():
+    """Get list of banned users"""
+    banned_users = await db.banned_users.find().to_list(100)
+    return banned_users
+
+@api_router.delete("/unban-user/{user_email}")
+async def unban_user(user_email: str):
+    """Remove ban from user"""
+    result = await db.banned_users.delete_one({"user_email": user_email})
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="המשתמש לא נמצא ברשימת החסומים")
+    
+    return {"success": True, "message": f"החסימה של {user_email} הוסרה בהצלחה"}
+
 # Include the router in the main app
 app.include_router(api_router)
 
