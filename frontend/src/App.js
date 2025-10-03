@@ -169,6 +169,19 @@ function App() {
                 <div className="absolute top-3 left-3 bg-cyan-500 text-black px-3 py-1 rounded-full text-sm font-bold">
                   מכירה
                 </div>
+                
+                {/* Delete Button */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteAccount(account.id);
+                  }}
+                  className="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full transition-all duration-200 opacity-80 hover:opacity-100"
+                  data-testid={`delete-account-${account.id}`}
+                  title="מחק חשבון"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
 
               {/* Account Info */}
