@@ -709,7 +709,7 @@ function App() {
         <DialogContent className={`bg-gray-800 border-gray-700 text-white ${isAdmin ? 'max-w-4xl' : 'max-w-md'} h-[500px] flex flex-col`}>
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-center">
-              {isAdmin ? 'ניהול שיחות' : 'צ'אט עם אדמין'}
+              {isAdmin ? "ניהול שיחות" : "צ'אט עם אדמין"}
             </DialogTitle>
           </DialogHeader>
           
