@@ -40,8 +40,11 @@ function App() {
   });
 
   useEffect(() => {
-    fetchAccounts();
-  }, []);
+    if (isLoggedIn) {
+      fetchAccounts();
+      fetchChatMessages();
+    }
+  }, [isLoggedIn]);
 
   const fetchAccounts = async () => {
     try {
