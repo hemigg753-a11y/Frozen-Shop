@@ -859,7 +859,7 @@ function App() {
             // Regular User View
             <>
               {/* Messages Area */}
-              <div className="flex-1 overflow-y-auto space-y-3 p-4 bg-gray-900 rounded-lg">
+              <div className="flex-1 overflow-y-auto space-y-3 p-4 bg-gray-50 rounded-lg">
                 {chatMessages.length === 0 && (
                   <div className="text-center text-gray-400 py-8">
                     שלח הודעה לאדמין
