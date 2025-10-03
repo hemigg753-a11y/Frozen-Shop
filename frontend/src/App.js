@@ -657,7 +657,7 @@ function App() {
               <div 
                 key={index} 
                 className={`flex ${
-                  (msg.sender === userEmail || msg.sender === 'אתה') ? 'justify-end' : 'justify-start'
+                  msg.sender_email === userEmail ? 'justify-end' : 'justify-start'
                 }`}
               >
                 <div 
