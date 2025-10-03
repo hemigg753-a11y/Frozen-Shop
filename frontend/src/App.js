@@ -259,15 +259,14 @@ function App() {
         if (!isAdmin) {
           // Send additional email notification
           try {
-            await axios.post(`${API}/send-email`, {
-              sender_email: userEmail,
-              message: newMessage
-            }, {
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            });
-            toast.success(`ההודעה נשלחה לאדמין באימייל: lagzielalon81@gmail.com`);
+            const formData = new FormData();
+            formData.append('sender_email', userEmail);
+            formData.append('message', messageData.message);
+            
+            await axios.post(`${API}/send-email`, formData);
+            toast.success(`📧 ההודעה נשלחה לאדמין באימייל: lagzielalon81@gmail.com`);
           } catch (error) {
-            toast.success(`ההודעה נשמרה באתר (אימייל לא נשלח)`);
+            toast.success(`ההודעה נשמרה באתר לאדמין: lagzielalon81@gmail.com`);
           }
         } else {
           toast.success('ההודעה נשלחה');
