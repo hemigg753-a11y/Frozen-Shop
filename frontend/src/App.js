@@ -738,7 +738,7 @@ function App() {
 
       {/* Chat Modal */}
       <Dialog open={showChatModal} onOpenChange={setShowChatModal}>
-        <DialogContent className={`bg-gray-800 border-gray-700 text-white ${isAdmin ? 'max-w-4xl' : 'max-w-md'} h-[500px] flex flex-col`}>
+        <DialogContent className={`bg-white border-gray-200 text-gray-900 ${isAdmin ? 'max-w-4xl' : 'max-w-md'} h-[500px] flex flex-col`}>
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-center">
               {isAdmin ? "ניהול שיחות" : "צ'אט עם אדמין"}
