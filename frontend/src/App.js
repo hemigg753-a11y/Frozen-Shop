@@ -197,29 +197,26 @@ function App() {
 
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
-      const currentTime = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-      
-      const newMsg = {
-        sender: isAdmin ? 'אדמין' : userEmail,
-        message: newMessage,
-        time: currentTime,
-        isAdmin: isAdmin
-      };
-      
-      // Add message to local chat
-      setChatMessages([...chatMessages, newMsg]);
-      setNewMessage('');
-      
-      // Send message to backend/email only if not admin
-      if (!isAdmin) {
-        try {
-          // Here we would normally send to backend to email the admin
-          toast.success(`ההודעה נשלחה בהצלחה לאדמין: lagzielalon81@gmail.com`);
-        } catch (error) {
-          toast.error('שגיאה בשליחת ההודעה');
+      try {
+        const messageData = {
+          sender_email: userEmail,
+          message: newMessage,
+          is_admin: isAdmin
+        };
+        
+        await axios.post(`${API}/chat/messages`, messageData);
+        setNewMessage('');
+        
+        // Refresh messages
+        fetchChatMessages();
+        
+        if (!isAdmin) {
+          toast.success(`ההודעה נשלחה לאדמין: lagzielalon81@gmail.com`);
+        } else {
+          toast.success('ההודעה נשלחה');
         }
-      } else {
-        toast.success('ההודעה נשלחה');
+      } catch (error) {
+        toast.error('שגיאה בשליחת ההודעה');
       }
     }
   };
