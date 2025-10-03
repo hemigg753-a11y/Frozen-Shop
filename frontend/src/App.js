@@ -155,6 +155,36 @@ function App() {
     }
   };
 
+  const handleLogin = () => {
+    if (!loginEmail || !loginEmail.includes('@')) {
+      toast.error('אנא הזן כתובת אימייל תקינה');
+      return;
+    }
+
+    setUserEmail(loginEmail);
+    setIsLoggedIn(true);
+    
+    // Check if admin
+    if (loginEmail === 'lagzielalon81@gmail.com') {
+      setIsAdmin(true);
+      toast.success('התחברת כאדמין!');
+    } else {
+      setIsAdmin(false);
+      toast.success('התחברת בהצלחה!');
+    }
+    
+    setShowLoginModal(false);
+  };
+
+  const handleLogout = () => {
+    setUserEmail('');
+    setIsLoggedIn(false);
+    setIsAdmin(false);
+    setLoginEmail('');
+    setShowLoginModal(true);
+    toast.success('התנתקת בהצלחה');
+  };
+
   const handleSendMessage = () => {
     if (newMessage.trim()) {
       const currentTime = new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
