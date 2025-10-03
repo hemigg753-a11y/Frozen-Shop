@@ -83,8 +83,11 @@ function App() {
     const groups = {};
     
     messages.forEach(msg => {
-      const userEmail = msg.is_admin ? 'admin' : msg.sender_email;
-      if (userEmail !== 'admin') {
+      // Find the user email - it's either sender or conversation_with (not admin email)
+      const userEmail = msg.sender_email === 'lagzielalon81@gmail.com' ? 
+        msg.conversation_with : msg.sender_email;
+        
+      if (userEmail !== 'lagzielalon81@gmail.com') {
         if (!groups[userEmail]) {
           groups[userEmail] = {
             userEmail: userEmail,
