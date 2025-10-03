@@ -749,7 +749,7 @@ function App() {
             // Admin View - Conversations List
             <div className="flex flex-1 gap-4">
               {/* Conversations List */}
-              <div className="w-1/3 border-r border-gray-600">
+              <div className="w-1/3 border-r border-gray-200">
                 <h3 className="text-lg font-semibold mb-4 p-4">שיחות ({conversations.length})</h3>
                 <div className="overflow-y-auto max-h-[350px]">
                   {conversations.length === 0 ? (
