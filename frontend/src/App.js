@@ -251,6 +251,52 @@ function App() {
     }
   };
 
+  const handleRightClick = (e, conversation) => {
+    e.preventDefault();
+    setContextMenuPosition({ x: e.clientX, y: e.clientY });
+    setContextMenuUser(conversation);
+    setShowContextMenu(true);
+  };
+
+  const handleDeleteChat = async (userEmail) => {
+    if (window.confirm(`האם אתה בטוח שברצונך למחוק את הצ'אט עם ${userEmail}?`)) {
+      try {
+        await axios.delete(`${API}/chat/user/${userEmail}`);
+        toast.success('הצ\'אט נמחק בהצלחה');
+        fetchChatMessages(); // Refresh conversations
+        if (activeConversation?.userEmail === userEmail) {
+          setActiveConversation(null);
+          setChatMessages([]);
+        }
+      } catch (error) {
+        toast.error('שגיאה במחיקת הצ\'אט');
+      }
+    }
+    setShowContextMenu(false);
+  };
+
+  const handleBanUser = async (userEmail) => {
+    if (window.confirm(`האם אתה בטוח שברצונך לחסום את ${userEmail}?`)) {
+      try {
+        await axios.post(`${API}/ban-user`, { user_email: userEmail });
+        toast.success(`המשתמש ${userEmail} נחסם בהצלחה`);
+        fetchChatMessages(); // Refresh conversations
+        if (activeConversation?.userEmail === userEmail) {
+          setActiveConversation(null);
+          setChatMessages([]);
+        }
+      } catch (error) {
+        toast.error('שגיאה בחסימת המשתמש');
+      }
+    }
+    setShowContextMenu(false);
+  };
+
+  // Close context menu when clicking elsewhere
+  const handleClickOutside = () => {
+    setShowContextMenu(false);
+  };
+
   const handleLogout = () => {
     setUserEmail('');
     setIsLoggedIn(false);
