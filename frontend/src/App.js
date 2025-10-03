@@ -296,6 +296,7 @@ function App() {
   };
 
   const openConversation = async (conversation) => {
+    console.log('Opening conversation with:', conversation.userEmail);
     setActiveConversation(conversation);
     
     // Get all messages for this conversation
@@ -308,9 +309,12 @@ function App() {
         (msg.sender_email === 'lagzielalon81@gmail.com' && msg.conversation_with === conversation.userEmail)
       ).sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
       
+      console.log('Conversation messages:', conversationMessages);
       setChatMessages(conversationMessages);
+      toast.success(`פתחת שיחה עם ${conversation.userEmail}`);
     } catch (error) {
       console.error('Error fetching conversation messages:', error);
+      toast.error('שגיאה בטעינת השיחה');
     }
   };
 
