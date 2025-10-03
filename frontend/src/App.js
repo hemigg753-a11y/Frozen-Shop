@@ -237,7 +237,7 @@ function App() {
     if (newMessage.trim()) {
       try {
         const messageData = {
-          sender_email: userEmail,
+          sender_email: isAdmin && activeConversation ? activeConversation.userEmail : userEmail,
           message: newMessage,
           is_admin: isAdmin
         };
@@ -257,6 +257,17 @@ function App() {
         toast.error('שגיאה בשליחת ההודעה');
       }
     }
+  };
+
+  const openConversation = (conversation) => {
+    setActiveConversation(conversation);
+    // Filter messages for this specific user
+    const conversationMessages = conversation.messages.concat(
+      chatMessages.filter(msg => 
+        msg.sender_email === conversation.userEmail && msg.is_admin
+      )
+    );
+    setChatMessages(conversationMessages);
   };
 
   return (
