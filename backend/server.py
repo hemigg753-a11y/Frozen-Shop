@@ -364,6 +364,54 @@ async def unban_user(user_email: str):
     
     return {"success": True, "message": f"החסימה של {user_email} הוסרה בהצלחה"}
 
+# Purchase endpoints
+@api_router.post("/purchase")
+async def create_purchase(purchase_data: PurchaseRequest):
+    """Create a new purchase order and send email to admin"""
+    
+    # Create purchase record
+    purchase = Purchase(**purchase_data.dict())
+    purchase_dict = purchase.dict()
+    
+    # Convert datetime to string for MongoDB
+    if isinstance(purchase_dict['created_at'], datetime):
+        purchase_dict['created_at'] = purchase_dict['created_at'].isoformat()
+    
+    # Save to database
+    await db.purchases.insert_one(purchase_dict)
+    
+    # Send email notification to admin
+    send_purchase_notification(
+        purchase_data.customer_email, 
+        purchase_data.account_title, 
+        purchase_data.price
+    )
+    
+    return {
+        "success": True, 
+        "message": "הזמנה נוצרה בהצלחה! האדמין יטפל בה בהקדם",
+        "purchase_id": purchase.id
+    }
+
+@api_router.get("/purchases")
+async def get_purchases():
+    """Get all purchases for admin"""
+    purchases = await db.purchases.find().sort("created_at", -1).to_list(100)
+    
+    cleaned_purchases = []
+    for purchase in purchases:
+        clean_purchase = {
+            "id": purchase.get("id", str(purchase.get("_id", ""))),
+            "customer_email": purchase.get("customer_email", ""),
+            "account_title": purchase.get("account_title", ""),
+            "price": purchase.get("price", 0),
+            "status": purchase.get("status", "pending"),
+            "created_at": purchase.get("created_at", "")
+        }
+        cleaned_purchases.append(clean_purchase)
+    
+    return cleaned_purchases
+
 # Include the router in the main app
 app.include_router(api_router)
 
