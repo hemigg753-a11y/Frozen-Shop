@@ -253,14 +253,26 @@ function App() {
         )}
       </main>
 
-      {/* Floating Add Button */}
-      <Button
-        onClick={() => setShowCodeModal(true)}
-        className="fixed bottom-6 right-6 w-16 h-16 bg-cyan-500 hover:bg-cyan-600 text-black rounded-full shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 z-50"
-        data-testid="add-account-btn"
-      >
-        <Plus className="w-8 h-8" />
-      </Button>
+      {/* Floating Buttons */}
+      <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
+        {/* Chat Button */}
+        <Button
+          onClick={() => setShowChatModal(true)}
+          className="w-16 h-16 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+          data-testid="chat-btn"
+        >
+          <MessageCircle className="w-8 h-8" />
+        </Button>
+        
+        {/* Add Button */}
+        <Button
+          onClick={() => setShowCodeModal(true)}
+          className="w-16 h-16 bg-cyan-500 hover:bg-cyan-600 text-black rounded-full shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300"
+          data-testid="add-account-btn"
+        >
+          <Plus className="w-8 h-8" />
+        </Button>
+      </div>
 
       {/* Code Verification Modal */}
       <Dialog open={showCodeModal} onOpenChange={setShowCodeModal}>
