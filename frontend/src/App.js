@@ -380,7 +380,7 @@ function App() {
             </div>
             <Button
               onClick={handleLogout}
-              className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+              className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg shadow-md"
               title="התנתק"
             >
               <LogOut className="w-4 h-4" />
