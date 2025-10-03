@@ -662,20 +662,22 @@ function App() {
               >
                 <div 
                   className={`max-w-xs p-3 rounded-lg ${
-                    msg.sender === userEmail || msg.sender === 'אתה'
+                    msg.sender_email === userEmail
                       ? 'bg-cyan-500 text-black' 
-                      : msg.isAdmin || msg.sender === 'אדמין'
+                      : msg.is_admin
                       ? 'bg-green-600 text-white'
                       : 'bg-gray-700 text-white'
                   }`}
                 >
                   <div className="text-sm font-semibold mb-1">
-                    {msg.sender === userEmail ? 'אתה' : 
-                     msg.sender === 'אדמין' || msg.isAdmin ? 'אדמין' : 
-                     msg.sender}
+                    {msg.sender_email === userEmail ? 'אתה' : 
+                     msg.is_admin ? 'אדמין' : 
+                     msg.sender_email}
                   </div>
                   <div className="text-sm">{msg.message}</div>
-                  <div className="text-xs opacity-70 mt-1">{msg.time}</div>
+                  <div className="text-xs opacity-70 mt-1">
+                    {new Date(msg.timestamp).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' })}
+                  </div>
                 </div>
               </div>
             ))}
