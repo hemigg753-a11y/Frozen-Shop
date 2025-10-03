@@ -31,6 +31,9 @@ function App() {
   const [conversations, setConversations] = useState([]);
   const [activeConversation, setActiveConversation] = useState(null);
   const [newMessage, setNewMessage] = useState('');
+  const [showContextMenu, setShowContextMenu] = useState(false);
+  const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
+  const [contextMenuUser, setContextMenuUser] = useState(null);
   const [accessCode, setAccessCode] = useState('');
   const [isCodeVerified, setIsCodeVerified] = useState(false);
   const [loading, setLoading] = useState(false);
