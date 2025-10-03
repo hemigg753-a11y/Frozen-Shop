@@ -448,7 +448,7 @@ function App() {
                   {formatDate(account.created_at)}
                 </p>
                 
-                <div className="text-3xl font-bold text-cyan-400 mb-4">
+                <div className="text-3xl font-bold text-green-600 mb-4">
                   {formatPrice(account.price)}
                 </div>
                 
