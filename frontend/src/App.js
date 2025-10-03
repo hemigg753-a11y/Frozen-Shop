@@ -259,15 +259,23 @@ function App() {
     }
   };
 
-  const openConversation = (conversation) => {
+  const openConversation = async (conversation) => {
     setActiveConversation(conversation);
-    // Filter messages for this specific user
-    const conversationMessages = conversation.messages.concat(
-      chatMessages.filter(msg => 
-        msg.sender_email === conversation.userEmail && msg.is_admin
-      )
-    );
-    setChatMessages(conversationMessages);
+    
+    // Get all messages for this conversation (user + admin responses)
+    try {
+      const response = await axios.get(`${API}/chat/messages`);
+      const allMessages = response.data;
+      
+      const conversationMessages = allMessages.filter(msg => 
+        msg.sender_email === conversation.userEmail || 
+        (msg.is_admin && msg.sender_email === conversation.userEmail)
+      ).sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+      
+      setChatMessages(conversationMessages);
+    } catch (error) {
+      console.error('Error fetching conversation messages:', error);
+    }
   };
 
   return (
