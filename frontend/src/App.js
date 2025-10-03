@@ -875,8 +875,8 @@ function App() {
                     <div 
                       className={`max-w-xs p-3 rounded-lg ${
                         msg.sender_email === userEmail
-                          ? 'bg-cyan-500 text-black' 
-                          : 'bg-green-600 text-white'
+                          ? 'bg-blue-500 text-white' 
+                          : 'bg-gray-200 text-gray-900'
                       }`}
                     >
                       <div className="text-sm font-semibold mb-1">
