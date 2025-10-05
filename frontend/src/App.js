@@ -497,7 +497,7 @@ function App() {
                 )}
                 {/* Sale Badge */}
                 <div className="absolute top-3 left-3 bg-cyan-500 text-black px-3 py-1 rounded-full text-sm font-bold">
-                  מכירה
+                  מחירה
                 </div>
                 
                 {/* Delete Button - Only for admin */}
