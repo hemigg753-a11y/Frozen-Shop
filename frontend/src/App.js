@@ -336,7 +336,8 @@ function App() {
     if (newMessage.trim()) {
       try {
         const messageData = {
-          sender_email: isAdmin ? activeConversation.userEmail : userEmail,
+          sender_email: isAdmin ? 'lagzielalon81@gmail.com' : userEmail,
+          conversation_with: isAdmin ? activeConversation.userEmail : 'lagzielalon81@gmail.com',
           message: newMessage,
           is_admin: isAdmin
         };
