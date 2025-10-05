@@ -763,7 +763,7 @@ function App() {
                   </div>
                   <p className="text-sm text-gray-300 mb-2">העבר תשלום ל-Cash Cash:</p>
                   <div className="bg-gray-700 p-2 rounded font-mono text-center text-cyan-400 text-sm break-all">
-                    LMGusDqQyqm6CxnL4v1A2Zcy9RF8R7Wr8P
+                    bc1qs7yzmg5jaf3j25fwuu4a6azrj9ehcvuvck3nfy
                   </div>
                 </div>
                 
