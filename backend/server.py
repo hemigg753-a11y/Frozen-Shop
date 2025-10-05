@@ -271,15 +271,15 @@ async def create_chat_message(message_data: ChatMessageCreate):
         if banned_user:
             raise HTTPException(status_code=403, detail="המשתמש חסום ואינו יכול לשלוח הודעות")
     
-    # Set conversation_with field
+    # Set conversation_with field and sender_email
     if message_data.is_admin:
-        # Admin sending to user - conversation_with is the sender_email (which is the user)
-        conversation_with = message_data.sender_email
-        sender_email = "lagzielalon81@gmail.com"
+        # Admin sending to user - use the provided fields from frontend
+        sender_email = message_data.sender_email  # Should be lagzielalon81@gmail.com
+        conversation_with = message_data.conversation_with  # Should be the user email
     else:
         # User sending to admin
-        conversation_with = "lagzielalon81@gmail.com"
         sender_email = message_data.sender_email
+        conversation_with = "lagzielalon81@gmail.com"
         
         # Send email notification to admin when user sends message
         send_email_notification(sender_email, message_data.message)
