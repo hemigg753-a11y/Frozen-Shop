@@ -761,9 +761,9 @@ function App() {
                     </div>
                     <h5 className="font-bold text-green-300">Cash Cash</h5>
                   </div>
-                  <p className="text-sm text-gray-300 mb-2">העבר תשלום ל-Cash Cash:</p>
-                  <div className="bg-gray-700 p-2 rounded font-mono text-center text-cyan-400 text-sm break-all">
-                    bc1qs7yzmg5jaf3j25fwuu4a6azrj9ehcvuvck3nfy
+                  <p className="text-sm text-gray-300 mb-2">העבר תשלום באפליקציית Cash Cash למספר:</p>
+                  <div className="bg-gray-700 p-2 rounded font-mono text-center text-cyan-400 font-bold">
+                    054-260-9941
                   </div>
                 </div>
                 
