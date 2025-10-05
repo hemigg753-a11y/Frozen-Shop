@@ -38,7 +38,7 @@ def send_email_notification(sender_email: str, message: str):
         הודעה: {message}
         זמן: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')}
         
-        כדי לענות, התחבר לאתר: https://gameacc-trade.preview.emergentagent.com
+        כדי לענות, התחבר לאתר: https://fortnite-accounts.preview.emergentagent.com
         """
         
         # For demo purposes, we'll just log the email
@@ -76,7 +76,7 @@ def send_purchase_notification(customer_email: str, account_title: str, price: f
         3. 💬 עדכן את הלקוח בצ'אט
         
         🔗 כדי לנהל את ההזמנה, התחבר לאתר: 
-        https://gameacc-trade.preview.emergentagent.com
+        https://fortnite-accounts.preview.emergentagent.com
         """
         
         # Log the purchase email
